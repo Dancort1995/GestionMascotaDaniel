@@ -1,0 +1,87 @@
+
+<%@include file="plantilla/header.jsp" %>
+<%@include file="plantilla/menu.jsp" %>
+
+
+   <c:set var="categorias" scope="page" value="<%= servicio.getCategorias() %>"/>
+    <c:set var="productos" scope="page" value="<%= servicio.getProductos() %>"/>
+ 
+ <div class="row">
+     <div class="col s6 offset-s3 ">
+         <div class="card-panel">
+             <center> <h2> Productos</h2></center>
+             <form action="control.do" method="post" enctype="multipart/form-data">
+                 <label> Nombre </label>
+                 <input type="text" name="nombre"/>
+                 
+                 <label> Precio</label>
+                 <input type="text" name="precio"/>
+                 
+                 <label> Unidad</label>
+                 <input type="text" name="unidad"/>
+                 
+                 <label> Descripcion</label>
+                 <textarea name="descripcion" class="materialize-textarea"></textarea>
+                 <select name="idcategoria">
+                     <c:forEach items="${pageScope.categorias}" var="c">
+                          <option value="${c.idCategoria}" var="c">${c.nombreCategoria}</option>
+                     </c:forEach>
+                 </select>
+                 
+                 <div class="file-field input-field">
+                     <div class="btn right">
+                         <span>Buscar fotografia</span>
+                         <input type="file" name="foto">
+                     </div>
+                     <div class="file-path-wrapper">
+                         <input class="file-path validate" type="text">
+                     </div>
+                 </div>
+                 <button name="boton" value="nuevoproducto" class="btn">Crear</button>
+                 <br>
+
+             </form>
+                   
+             ${requestScope.msg}
+             <hr>
+             <table class="bordered">
+                 <thead>
+                     <tr><th>ID</th>
+                         <th>Nombre</th>
+                         <th>Unidad</th>
+                         <th>Precio</th>
+                         <th>Categoria</th>
+                         <th>Foto</th>
+                     
+                     </tr>
+                     
+                 </thead>
+                 <tbody>
+                     <c:forEach items="${pageScope.productos}" var="p">
+                         <tr>
+                             <td>${p.idProducto}</td> 
+                             <td>${p.nombreProducto}</td>
+                             <td>${p.precioProducto}</td>
+                             <td>${p.unidadesProducto}</td>
+                             <td>${p.categoria.nombreCategoria}</td>
+                             <td><xx:TagImage array="${p.fotoProducto}" tam="50"/></td>
+                         </tr>
+                     </c:forEach>
+                     
+                 </tbody>
+                 
+             </table>
+             
+             
+         </div>
+       
+       
+      
+         
+         
+     </div>
+     
+     
+ </div>
+      
+   <%@include file="plantilla/footer.jsp" %>
